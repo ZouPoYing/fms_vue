@@ -86,10 +86,10 @@ export default {
           self.createTime = res.data.createTime;
           self.updateTime = res.data.updateTime;
         } else {
-          self.$message.error(res.data.msg);
+          self.$toast(res.data.msg);
         }
       }).catch(function(err){
-        self.$message.error(err);
+        self.$toast(err);
       })
     },
     updateUser() {
@@ -108,7 +108,7 @@ export default {
         answer: self.answer,
       }).then(function(res){
         if (res.data.success) {
-          self.$message.success('修改成功');
+          self.$toast('修改成功');
           self.userName = res.data.userName;
           self.name = res.data.name;
           self.password = res.data.password;
@@ -117,15 +117,15 @@ export default {
           self.answer = res.data.answer;
           self.getUser();
         } else {
-          self.$message.error(res.data.msg);
+          self.$toast(res.data.msg);
         }
       }).catch(function(err){
-        self.$message.error(err);
+        self.$toast(err);
       })
     },
     LogOut() {
       this.$store.commit('clearUserCache');
-      this.$message.success('注销成功，即将跳转登录页');
+      this.$toast('注销成功，即将跳转登录页');
       setTimeout(() => {
         this.$router.push('/login')
       }, 1000)

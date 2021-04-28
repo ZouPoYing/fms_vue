@@ -5,6 +5,9 @@
                   type="flex" justify="center" align="middle">
               <el-col>
                   <el-avatar class="head-pic"> {{userName}} </el-avatar>
+                  <span v-if="isShow" style="margin-left: 50px">总资产：￥{{money}}</span>
+                  <span v-else style="margin-left: 50px">总资产：￥*****</span>
+                  <i @click="changeShow" style="margin-left: 20px" class="el-icon-view"></i>
               </el-col>
           </el-row>
           <el-row>
@@ -23,12 +26,16 @@
                   </el-row>
                   <el-row>
                       <el-col>
-                          <el-collapse style="margin-top: 20px" v-model="activeNames" @change="handleChange">
+                          <el-collapse style="margin-top: 20px">
                               <el-collapse-item title="我的资金" name="1">
-                                  <div>银行卡</div>
-                                  <div>支付宝</div>
-                                  <div>微信</div>
-                                  <div>基金</div>
+                                  <div v-if="isShow" @click="toMyMoneyDetail('银行卡')">银行卡 ￥{{yhk}}</div>
+                                  <div v-else @click="toMyMoneyDetail('银行卡')">银行卡 ￥*****</div>
+                                  <div v-if="isShow" @click="toMyMoneyDetail('支付宝')">支付宝 ￥{{zfb}}</div>
+                                  <div v-else @click="toMyMoneyDetail('支付宝')">支付宝 ￥*****</div>
+                                  <div v-if="isShow" @click="toMyMoneyDetail('微信')">微信 ￥{{wx}}</div>
+                                  <div v-else @click="toMyMoneyDetail('微信')">微信 ￥*****</div>
+                                  <div v-if="isShow" @click="toMyMoneyDetail('基金')">基金 ￥{{jj}}</div>
+                                  <div v-else @click="toMyMoneyDetail('基金')">基金 ￥*****</div>
                               </el-collapse-item>
                           </el-collapse>
                       </el-col>
@@ -52,7 +59,13 @@ export default {
   data () {
     return {
       userId: this.$store.state.user.userId,
-      userName: ''
+      userName: '',
+      isShow: true,
+      money: 0,
+      yhk: 0,
+      zfb: 0,
+      wx: 0,
+      jj: 0
     }
   },
   created() {
@@ -67,11 +80,32 @@ export default {
         }).then(function(res){
           if (res.data.success) {
             self.userName = res.data.userName;
+            self.getMyMoney();
           } else {
-            self.$message.error(res.data.msg);
+            self.$toast(res.data.msg);
           }
         }).catch(function(err){
-          self.$message.error(err);
+          self.$toast(err);
+        })
+      }
+    },
+    getMyMoney() {
+      var self = this;
+      if (self.$store.state.user.userId !== '') {
+        axios.post('http://localhost:9090/fms/money/getMyMoney', {
+          userId: self.userId
+        }).then(function(res){
+          if (res.data.success) {
+            self.money = res.data.money;
+            self.yhk = res.data.yhk;
+            self.zfb = res.data.zfb;
+            self.wx = res.data.wx;
+            self.jj = res.data.jj;
+          } else {
+            self.$toast(res.data.msg);
+          }
+        }).catch(function(err){
+          self.$toast(err);
         })
       }
     },
@@ -83,6 +117,17 @@ export default {
     },
     toMemorandum() {
       this.$router.push('/memorandum')
+    },
+    toMyMoneyDetail(val) {
+      this.$router.push({
+        path: '/myMoneyDetail',
+        query: {
+          moneyType: val
+        }
+      })
+    },
+    changeShow() {
+      this.isShow = !this.isShow
     }
   }
 }

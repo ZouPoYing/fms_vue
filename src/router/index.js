@@ -9,6 +9,9 @@ import Setting from "@/views/setting/Setting";
 import Memorandum from "@/views/memorandum/Memorandum";
 import Recommend from "@/views/recommend/Recommend";
 import Statistics from "@/views/statistics/Statistics";
+import MyMoneyDetail from "@/views/myMoneyDetail/MyMoneyDetail";
+import Search from "@/views/search/Search";
+import Detail from "@/views/detail/Detail";
 
 Vue.use(Router)
 
@@ -63,7 +66,21 @@ export default new Router({
       path: '/statistics',
       name: 'Statistics',
       component: Statistics
+    },
+    {
+      path: '/myMoneyDetail',
+      name: 'MyMoneyDetail',
+      component: MyMoneyDetail
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
     }
-
   ]
 })

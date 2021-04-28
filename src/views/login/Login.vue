@@ -73,15 +73,15 @@ import axios from "axios"
           }).then(function (res) {
             if (res.data.success) {
               self.$store.commit('getUserId',res.data.userId);
-              self.$message.success('登录成功，即将跳转首页');
+              self.$toast('登录成功，即将跳转首页');
               setTimeout(() => {
                 self.$router.push('/my')
               }, 1000)
             } else {
-              self.$message.error(res.data.msg);
+              self.$toast(res.data.msg);
             }
           }).catch(function(err){
-            self.$message.error(err);
+            self.$toast(err);
           })
         } else {
           return false

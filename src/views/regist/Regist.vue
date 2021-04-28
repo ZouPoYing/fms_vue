@@ -116,15 +116,15 @@ export default {
             answer: self.ruleForm.answer
           }).then(function (res) {
             if (res.data.success) {
-              self.$message.success('登录成功，即将跳转登录界面');
+              self.$toast('登录成功，即将跳转登录界面');
               setTimeout(() => {
                 self.$router.push('/login')
               }, 1000)
             } else {
-              self.$message.error(res.data.msg);
+              self.$toast(res.data.msg);
             }
           }).catch(function(err){
-            self.$message.error(err);
+            self.$toast(err);
           })
         } else {
           return false
