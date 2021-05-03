@@ -17,11 +17,15 @@ const store = new Vuex.Store({
       answer: '',
       createTime: '',
       updateTime: ''
-    }
+    },
+    ys: 2000
   },
   mutations: {
     getUserId(state,userId) {
       state.user.userId = userId
+    },
+    setYs(state,ys) {
+      state.ys = ys
     },
     clearUserCache(state) {
       state.user.userId = '',

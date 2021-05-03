@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import My from "@/views/my/My";
-import View3 from "@/views/view3";
 import Login from "@/views/login/Login";
 import Regist from "@/views/regist/Regist";
 import Forget from "@/views/forget/Forget";
@@ -12,6 +11,8 @@ import Statistics from "@/views/statistics/Statistics";
 import MyMoneyDetail from "@/views/myMoneyDetail/MyMoneyDetail";
 import Search from "@/views/search/Search";
 import Detail from "@/views/detail/Detail";
+import MyFund from "@/views/myFund/MyFund";
+import StatisticsDetail from "@/views/statistics/StatisticsDetail";
 
 Vue.use(Router)
 
@@ -23,9 +24,9 @@ export default new Router({
       redirect: '/recommend'
     },
     {
-      path: '/view3',
-      name: 'View3',
-      component: View3
+      path: '/myFund',
+      name: 'MyFund',
+      component: MyFund
     },
     {
       path: '/my',
@@ -81,6 +82,11 @@ export default new Router({
       path: '/detail',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/statisticsDetail',
+      name: 'StatisticsDetail',
+      component: StatisticsDetail
     }
   ]
 })

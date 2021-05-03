@@ -34,8 +34,8 @@
                                   <div v-else @click="toMyMoneyDetail('支付宝')">支付宝 ￥*****</div>
                                   <div v-if="isShow" @click="toMyMoneyDetail('微信')">微信 ￥{{wx}}</div>
                                   <div v-else @click="toMyMoneyDetail('微信')">微信 ￥*****</div>
-                                  <div v-if="isShow" @click="toMyMoneyDetail('基金')">基金 ￥{{jj}}</div>
-                                  <div v-else @click="toMyMoneyDetail('基金')">基金 ￥*****</div>
+                                  <div v-if="isShow" @click="toMyFund">基金 ￥{{jj}}</div>
+                                  <div v-else @click="toMyFund">基金 ￥*****</div>
                               </el-collapse-item>
                           </el-collapse>
                       </el-col>
@@ -128,6 +128,9 @@ export default {
     },
     changeShow() {
       this.isShow = !this.isShow
+    },
+    toMyFund() {
+      this.$router.push('/myFund')
     }
   }
 }

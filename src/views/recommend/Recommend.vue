@@ -1,6 +1,15 @@
 <template>
     <div>
         <h1>理财推荐<i @click="toSearch" style="margin-left: 140px" class="el-icon-search"></i></h1>
+        <el-carousel :interval="3000"
+                     arrow="always"
+                     height="200px">
+            <el-carousel-item v-for="(item,index) in recom" :key="index">
+                <img style="width: 100%"
+                     @click="toDetail(item)"
+                     :src="require('../../assets/img/recom/'+item.pic+'.jpg')" alt="">
+            </el-carousel-item>
+        </el-carousel>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="基金规模" name="基金规模">基金规模排行</el-tab-pane>
             <el-tab-pane label="收益能力" name="收益能力">收益能力排行</el-tab-pane>
@@ -40,11 +49,16 @@ export default {
   data() {
       return {
         activeName: '基金规模',
-        list: []
+        list: [],
+        recom: [
+          {fundId:'6',pic:'lyc'},
+          {fundId:'4',pic:'qy'},
+          {fundId:'7',pic:'xzy'}
+          ]
       }
   },
   created() {
-
+    this.getFundPH();
   },
   methods: {
       getFundPH() {
@@ -77,5 +91,19 @@ export default {
 </script>
 
 <style scoped>
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 18px;
+        opacity: 0.75;
+        line-height: 300px;
+        margin: 0;
+    }
 
+    .el-carousel__item:nth-child(2n) {
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: #d3dce6;
+    }
 </style>

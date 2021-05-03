@@ -21,9 +21,9 @@ export default {
   data() {
     return {
       list: [
-        {src : 'user',router : 'recommend',text : '理财推荐'},
-        {src : 'user',router : 'statistics',text : '收益统计'},
-        {src : 'user',router : 'view3',text : '收支管理'},
+        {src : 'recommend',router : 'recommend',text : '理财推荐'},
+        {src : 'myFund',router : 'myFund',text : '我的基金'},
+        {src : 'statistics',router : 'statistics',text : '收支统计'},
         {src : 'user',router : 'my',text : '我的'}
       ]
     }

@@ -9,15 +9,23 @@
             </el-col>
         </el-row>
         <el-row v-if="isNotJJ" type="flex">
-            <el-col>
-                <el-button @click="addMoney('add')" type="success">绑定{{moneyType}}</el-button>
-            </el-col>
-            <el-col>
-                <el-button @click="addMoney('update')" type="success">充值</el-button>
-            </el-col>
-            <el-col>
-                <el-button type="success">账户内转账</el-button>
-            </el-col>
+            <ul style="padding: 14px;list-style-type:none;">
+                <li style="padding: 18px 0 18px 0">
+                    注：只能绑定一次，绑定即为签署{{moneyType}}自由转账协议
+                    <divider></divider>
+                    <el-button @click="addMoney('add')" type="success">绑定{{moneyType}}</el-button>
+                </li>
+                <li v-if="isNotYHK" style="padding: 18px 0 18px 0">
+                    注：把银行卡的钱充值到{{moneyType}}
+                    <divider></divider>
+                    <el-button @click="addMoney('recharge')" type="success">充值</el-button>
+                </li>
+                <li v-if="isNotYHK" style="padding: 18px 0 15px 0">
+                    注：把{{moneyType}}的钱提现到银行卡
+                    <divider></divider>
+                    <el-button @click="addMoney('withdraw')" type="success">提现</el-button>
+                </li>
+            </ul>
         </el-row>
         <el-row v-else type="flex">
             <el-col>
@@ -35,9 +43,9 @@
                         </el-form-item>
                     </el-form>
                     <span slot="footer" class="dialog-footer">
-            <el-button type="success" @click="add">确 定</el-button>
-            <el-button @click="dialogVisible = false">取 消</el-button>
-        </span>
+                        <el-button type="success" @click="add">确 定</el-button>
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                    </span>
                 </el-dialog>
             </el-col>
         </el-row>
@@ -46,9 +54,11 @@
 
 <script>
 import axios from "axios";
+import Divider from "@/components/common/divider/Divider";
 
 export default {
     name: "MyMoneyDetail",
+  components: {Divider},
   data() {
       return {
         moneyType: this.$route.query.moneyType,
@@ -56,6 +66,7 @@ export default {
         moneyId: '',
         isShow: true,
         isNotJJ: true,
+        isNotYHK: true,
         dialogVisible: false,
         addmoney: '',
         type: 'add'
@@ -64,6 +75,7 @@ export default {
   created() {
     this.getMyMoneyDetail();
     this.changeIsNotJJ();
+    this.changeIsNotYHK();
   },
   methods: {
     getMyMoneyDetail() {
@@ -92,6 +104,13 @@ export default {
         this.isNotJJ = true
       }
     },
+    changeIsNotYHK() {
+      if (this.moneyType === '银行卡') {
+        this.isNotYHK = false
+      } else {
+        this.isNotYHK = true
+      }
+    },
     addMoney(val) {
       this.dialogVisible = !this.dialogVisible
       this.type = val
@@ -107,6 +126,7 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           self.getMyMoneyDetail();
+          self.$toast('操作成功');
           self.dialogVisible = !self.dialogVisible
         } else {
           self.$toast(res.data.msg);

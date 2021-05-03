@@ -67,7 +67,7 @@ import axios from "axios"
       var self = this;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post('http://localhost:9090/fms/user/login',{
+          axios.post('http://localhost:9090/fms/user/loginByUser',{
             userName: this.ruleForm.username,
             password: this.ruleForm.password
           }).then(function (res) {
