@@ -28,7 +28,7 @@
         <el-tabs v-model="activeNameSZ" @tab-click="handleClick">
             <el-tab-pane label="支出" name="支出"></el-tab-pane>
             <el-tab-pane label="收入" name="收入"></el-tab-pane>
-            <!-- 图表 -->
+            <!-- 图表 //,padding:'0 0 0 20px',margin:'0 0 0 20px'-->
             <div id="myChart" :style="{width:'100%',height:'300px'}"></div>
             <span style="margin-left: 120px">收支柱状图</span>
             <div id="pieChart" :style="{width:'100%',height:'300px'}"></div>

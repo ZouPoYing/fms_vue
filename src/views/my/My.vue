@@ -21,11 +21,6 @@
                   <el-divider></el-divider>
                   <el-row>
                       <el-col>
-                          <span @click="toMemorandum">备忘录</span>
-                      </el-col>
-                  </el-row>
-                  <el-row>
-                      <el-col>
                           <el-collapse style="margin-top: 20px">
                               <el-collapse-item title="我的资金" name="1">
                                   <div v-if="isShow" @click="toMyMoneyDetail('银行卡')">银行卡 ￥{{yhk}}</div>

@@ -19,12 +19,12 @@
                             <h1>￥{{list.zc}}</h1>
                         </el-col>
                     </el-row>
-                    预算
-                    <el-row>
-                        <el-col>
-                            <h1>￥{{ys}}</h1>
-                        </el-col>
-                    </el-row>
+<!--                    预算-->
+<!--                    <el-row>-->
+<!--                        <el-col>-->
+<!--                            <h1>￥{{ys}}</h1>-->
+<!--                        </el-col>-->
+<!--                    </el-row>-->
                 </el-col>
             </el-row>
             <el-row>
@@ -141,14 +141,15 @@ export default {
     },
     addMoneyDetail() {
       var self = this
-      if (self.type==='支出' && self.ys>=self.money) {
-        self.ys -= self.money
-        self.$store.commit('setYs',self.ys)
-      }
-      if (self.type==='支出' && self.ys<self.money) {
-        self.$toast('预算不足');
-        return
-      }
+      // if (self.type==='支出' && self.ys>=self.money) {
+      //   self.ys -= self.money
+      //   self.$store.commit('setYs',self.ys)
+      // }
+      // if (self.type==='支出' && self.ys<self.money) {
+      //   self.$toast('预算不足');
+      //   self.dialogVisible = false
+      //   return
+      // }
       axios.post('http://localhost:9090/fms/money-detail/addMoneyDetail', {
         moneyType: self.activeName,
         userId: self.$store.state.user.userId,
